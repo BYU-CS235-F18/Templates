@@ -67,9 +67,6 @@ We could also declare a MV or type string.
 If you want to inherit from a template class (which you will want to do for lab 2), you can do this in the same way you inherited from non-template classes.  Assuming you have the following interface file:
 ```c++
 #pragma once
-#include <string>
-
-using namespace std;
 
 template<typename T>
 class VectorInterface
