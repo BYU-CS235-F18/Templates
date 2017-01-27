@@ -91,7 +91,7 @@ public:
 };
 ```
 You can create a subclass like this:
-```
+```c++
 #include "VectorInterface.h"
 template <class T>
 class MyVector: public VectorInterface<T>
@@ -116,7 +116,7 @@ public:
 };
 ```
 And you can use this new MyVector class in the same way you would use the std vector.
-```
+```c++
     MyVector<int> myvecint;
     myvecint.push_back(5);
     myvecint.insertAt(0, 6);
