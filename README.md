@@ -1,5 +1,5 @@
 # Vector
-In this learning activity, we will develop the vector template class.  This will be very similar to the list class that you will be developing for Lab 2.
+In this learning activity, we will explore templates which will be used in developing a vector template class.  This will be very similar to the list class that you will be developing for Lab 2.
 To get started, you should be aware of the [sample code included with the book](http://bcs.wiley.com/he-bcs/Books?action=resource&bcsId=2949&itemId=0471467553&resourceId=7105&chapterId=21528).  It will give you a lot of help in how to implement your list class and we will use it to implement our vector class as well.  I suggest that you upload the material for chapter 4 to c9.io or your development environment now.
 To get started, we need to understand templates.  Templates allow us to create a class that can contain any other class.  So, if we are building a vector container, it should be able to handle ints, strings or any other type.  The syntax is a bit confusing, so lets start with a simple example
 ```c++
