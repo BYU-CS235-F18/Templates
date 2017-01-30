@@ -19,7 +19,7 @@ public:
 	};
 	~MyVector(void) {
 		//cout << "In destructor"<<endl;
-		delete array;
+		delete [] array;
 	};
 
 	void push_back(T value){
@@ -30,7 +30,7 @@ public:
 			for(int i = 0; i < current_capacity; i++) { // Copy to new array
 				newarray[i] = array[i];
 			}
-			delete array;
+			delete [] array;
 			array = newarray; // point to new space
 			current_capacity += STARTSIZE;
 		}
@@ -50,7 +50,7 @@ public:
 			for(int i = 0; i < current_capacity; i++) { // Copy to new array
 				newarray[i] = array[i];
 			}
-			delete array; // delete old array
+			delete [] array; // delete old array
 			array = newarray; // point to new space
 			current_capacity += STARTSIZE;
 		}
