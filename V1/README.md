@@ -48,7 +48,7 @@ Then make sure and delete the old array so we dont have memory leaks.
 			for(int i = 0; i < current_capacity; i++) { // Copy to new array
 				newarray[i] = array[i];
 			}
-			delete array;
+			delete [] array;
 			array = newarray; // point to new space
 			current_capacity += STARTSIZE;
 		}
@@ -102,7 +102,7 @@ Before we do this, we will need to make sure we have space for one more item.
 			for(int i = 0; i < current_capacity; i++) { // Copy to new array
 				newarray[i] = array[i];
 			}
-			delete array; // delete old array
+			delete [] array; // delete old array
 			array = newarray; // point to new space
 			current_capacity += STARTSIZE;
 		}
@@ -151,7 +151,7 @@ Finally, lets fill in the destructor.  We will need to delete everything we have
 ```c++
 	~MyVector(void) {
 		//cout << "In destructor"<<endl;
-		delete array;
+		delete [] array;
 	};
 ```
 Now you should run "valgrind ./vector" to look for memory leaks.  We will look at this next time.
