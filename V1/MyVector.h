@@ -15,10 +15,10 @@ public:
 		array = new T[STARTSIZE];
 		current_capacity = STARTSIZE;
 		num_items = 0;
-		//cout << "In constructor"<<endl;
+		cout << "In constructor"<<endl;
 	};
 	~MyVector(void) {
-		//cout << "In destructor"<<endl;
+		cout << "In destructor"<<endl;
 		delete [] array;
 	};
 
@@ -30,6 +30,8 @@ public:
 			for(int i = 0; i < current_capacity; i++) { // Copy to new array
 				newarray[i] = array[i];
 			}
+			cout << "push_back delete"<<endl;
+			
 			delete [] array;
 			array = newarray; // point to new space
 			current_capacity += STARTSIZE;
@@ -50,6 +52,7 @@ public:
 			for(int i = 0; i < current_capacity; i++) { // Copy to new array
 				newarray[i] = array[i];
 			}
+			cout << "insertAt delete"<<endl;
 			delete [] array; // delete old array
 			array = newarray; // point to new space
 			current_capacity += STARTSIZE;
