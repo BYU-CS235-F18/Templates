@@ -124,3 +124,4 @@ And you can use this new MyVector class in the same way you would use the std ve
     myvecint.remove(0);
     cout << "Zero " << myvecint.at(0)<<endl;
 ```
+Now, you will want to [fill in](https://github.com/BYUCS235/Vector/blob/master/V1/README.md) the functions that are stubbed out.
