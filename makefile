@@ -4,4 +4,7 @@ all: vector
 
 vector: vector.cpp
 	g++ $(CFLAGS) vector.cpp -o vector
+
+clean:
+	rm -f vector
 	
