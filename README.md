@@ -125,3 +125,50 @@ And you can use this new MyVector class in the same way you would use the std ve
     cout << "Zero " << myvecint.at(0)<<endl;
 ```
 Now, you will want to [fill in](https://github.com/BYUCS235/Vector/blob/master/V1/README.md) the functions that are stubbed out.
+
+# Test with Valgrind
+Once your code is ready, you will want to make sure that there are no memory leaks. To do this, run
+```bash
+  valgrind --leak-check=full ./vector
+```
+Run the valgrind program with the --leak-check=full option set and run your executable. Valgrind will offer additional output. If I do everything but implement the destructor, I get a memory leak:
+
+```
+==3908== 
+==3908== HEAP SUMMARY:
+==3908==     in use at exit: 32 bytes in 1 blocks
+==3908==   total heap usage: 9 allocs, 8 frees, 74,549 bytes allocated
+==3908== 
+==3908== 32 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==3908==    at 0x4C2C93F: operator new[](unsigned long) (vg_replace_malloc.c:423)
+==3908==    by 0x10A0B3: MyVector<int>::resize(int) (MyVector.h:20)
+==3908==    by 0x109D3C: MyVector<int>::insertAt(int, int) (MyVector.h:68)
+==3908==    by 0x1095B7: main (main.cpp:32)
+==3908== 
+==3908== LEAK SUMMARY:
+==3908==    definitely lost: 32 bytes in 1 blocks
+==3908==    indirectly lost: 0 bytes in 0 blocks
+==3908==      possibly lost: 0 bytes in 0 blocks
+==3908==    still reachable: 0 bytes in 0 blocks
+==3908==         suppressed: 0 bytes in 0 blocks
+==3908== 
+==3908== For counts of detected and suppressed errors, rerun with: -v
+==3908== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+```
+
+Notice that it tells me exactly where I'm calling "new" to allocate the memory that I never deallocate. It's in my resize function, called by insertAt, called by main.cpp. Now if I implement the destructor and rerun it with Valgrind:
+
+```
+==3927== 
+==3927== HEAP SUMMARY:
+==3927==     in use at exit: 0 bytes in 0 blocks
+==3927==   total heap usage: 9 allocs, 9 frees, 74,549 bytes allocated
+==3927== 
+==3927== All heap blocks were freed -- no leaks are possible
+==3927== 
+==3927== For counts of detected and suppressed errors, rerun with: -v
+==3927== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+```
+
+No more memory leaks! Hooray! That's because my destructor is now deallocating all of the memory that the MyVector object allocated with "new". I use "delete [] array;" to deallocate the private array named "array".
+
