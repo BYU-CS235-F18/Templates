@@ -9,16 +9,16 @@ class VectorInterface
 
 public:
 
-	VectorInterface(void) {};
-	virtual ~VectorInterface(void) {};
+	VectorInterface() {};
+	virtual ~VectorInterface() {};
 
-	virtual void push_back(T value) = 0;
+	virtual void pushBack(T value) = 0;
 	
 	/* Insert value after given index */
 	virtual void insertAt(int index, T value) = 0;
 
 	/* Remove the element at index */
-	virtual void remove(int index) = 0;
+	virtual void removeAt(int index) = 0;
 	
 	virtual T at(int index) = 0;
 

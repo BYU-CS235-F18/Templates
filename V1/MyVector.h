@@ -1,94 +1,115 @@
+#pragma once
 #include "VectorInterface.h"
-#include <stdexcept>
-#define STARTSIZE 4
+#include <sstream>
+#define INIT_CAPACITY 2
+
 template <class T>
 class MyVector: public VectorInterface<T>
 {
 private:
-	T *array;
-	int current_capacity;
-	int num_items;
-	
+
+	int* array;
+	int length;
+	int capacity;
+
+	/* Resize vector */
+	void resize(int newCapacity)
+	{
+		cout << "In resize (new capacity is " << newCapacity << ")" << endl;
+		capacity = newCapacity; // Set capacity
+		int* newArray = new int[capacity]; // Allocate new memory
+		for(int i = 0; i < length; i++)
+			newArray[i] = array[i]; // Copy old values into new memory
+		delete [] array; // Deallocate old memory
+		array = newArray; // Point "array" at new memory
+	}
+
 public:
 
-	MyVector(void) {
-		array = new T[STARTSIZE];
-		current_capacity = STARTSIZE;
-		num_items = 0;
-		cout << "In constructor"<<endl;
-	};
-	~MyVector(void) {
-		cout << "In destructor"<<endl;
-		delete [] array;
-	};
+	/* Constructor */
+	MyVector()
+	{
+		cout << "In constructor" << endl;
+		length = 0;
+		capacity = INIT_CAPACITY;
+		array = new int[capacity]; // Allocate memory
+	}
 
-	void push_back(T value){
-		//cout << "In push_back"<<endl;
-		if(num_items >= current_capacity) { // We are out of room
-			cout << "push_back Copying to bigger array"<<endl;
-			T *newarray = new T[current_capacity + STARTSIZE]; // allocate
-			for(int i = 0; i < current_capacity; i++) { // Copy to new array
-				newarray[i] = array[i];
-			}
-			cout << "push_back delete"<<endl;
-			
-			delete [] array;
-			array = newarray; // point to new space
-			current_capacity += STARTSIZE;
-		}
-		array[num_items] = value; // put the new value in
-		num_items++;
-	};
+	/* Destructor */
+	~MyVector()
+	{
+		cout << "In destructor" << endl;
+		delete [] array; // Deallocate memory
+	}
+
+	/* Insert value at end */
+	void pushBack(T value)
+	{
+		cout << "In pushBack (value=" << value << ")" << endl;
+		// Resize if needed
+		if(length == capacity)
+			resize(capacity*2);
+		array[length] = value; // Set value
+		length++; // Increment length
+	}
 	
 	/* Insert value at given index */
-	void insertAt(int index, T value){
-		//cout << "In insertAt"<<endl;
-		if(index >= num_items) {
-			throw std::out_of_range("insertAt Error");
+	void insertAt(int index, T value)
+	{
+		cout << "In insertAt" << endl;
+		// Check index bounds
+		if(index >= length || index < 0)
+		{
+			stringstream message;
+			message << "Cannot remove index " << index << " for MyVector of size " << length << endl;
+			throw message.str();
 		}
-		if(num_items >= current_capacity) { // We are out of room
-			cout << "insertAt Copying to bigger array"<<endl;
-			T *newarray = new T[current_capacity + STARTSIZE]; // allocate
-			for(int i = 0; i < current_capacity; i++) { // Copy to new array
-				newarray[i] = array[i];
-			}
-			cout << "insertAt delete"<<endl;
-			delete [] array; // delete old array
-			array = newarray; // point to new space
-			current_capacity += STARTSIZE;
-		}
-		//push everything back one space
-		for(int i = num_items; i > index; i--) {
-			array[i] = array[i-1];
-		}
-		array[index] = value; // put the new value in
-		num_items++;
-	};
+		// Resize if needed
+		if(length == capacity)
+			resize(capacity*2);
+		// Copy values from [index, length-1] up an index
+		for(int i = length-1; i >= index; i--)
+			array[i+1] = array[i];
+		array[index] = value; // Set array[index] to value
+		length++; // Increment length
+	}
 
 	/* Remove the element at index */
-	void remove(int index) {
-		//cout << "In remove"<<endl;
-		if(index >= num_items) {
-			throw std::out_of_range("remove Error");
+	void removeAt(int index)
+	{
+		cout << "In remove" << endl;
+		// Check index bounds
+		if(index >= length || index < 0)
+		{
+			stringstream message;
+			message << "Cannot remove index " << index << " for MyVector of size " << length << endl;
+			throw message.str();
 		}
-		// Shift everything down 
-		num_items--;
-		for(int i = index; i < num_items; i++) {
+		// Copy values from [index, length-1] down an index
+		for(int i = index; i < length; i++)
 			array[i] = array[i+1];
-		}
-	};
+		// Decrement length
+		length--;
+	}
 	
-	T at(int index){
-		//cout << "In at"<<endl;
-		if(index >= num_items) {
-			throw std::out_of_range("At Error");
-		} else {
-			return(array[index]);
+	/* Get value at index */
+	T at(int index)
+	{
+		cout << "In at" << endl;
+		// Check index bounds
+		if(index >= length || index < 0)
+		{
+			stringstream message;
+			message << "Cannot access index " << index << " for MyVector of size " << length << endl;
+			throw message.str();
 		}
-	};
+		return array[index]; // Return value at index
+	}
 
-	int size(){
-		//cout << "In size"<<endl; 
-		return(num_items);
-	};
+	/* Get number of values in vector */
+	int size()
+	{
+		cout << "In size" << endl;
+		return length;
+	}
 };

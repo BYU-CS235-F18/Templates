@@ -1,9 +1,7 @@
 CFLAGS=-std=c++11 -g
 
-all: vector
-
-vector: vector.cpp
-	g++ $(CFLAGS) vector.cpp -o vector
+vector:
+	g++ $(CFLAGS) main.cpp -o vector
 
 clean:
 	rm -f vector

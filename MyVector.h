@@ -1,8 +1,21 @@
+#pragma once
 #include "VectorInterface.h"
+#include <sstream>
+#define INIT_CAPACITY 2
+
 template <class T>
 class MyVector: public VectorInterface<T>
 {
+private:
+	int* array;
+	int length;
+	int capacity;
+	void resize(int newCapacity)
+	{
+		cout << "In resize (new capacity is " << newCapacity << ")" << endl;
+	}
 public:
+
 	/* Constructor */
 	MyVector()
 	{
@@ -16,19 +29,19 @@ public:
 	}
 
 	/* Insert value at end */
-	void push_back(T value)
+	void pushBack(T value)
 	{
-		cout << "In push_back" << endl;
+		cout << "In pushBack (value=" << value << ")" << endl;
 	}
 	
-	/* Insert value after given index */
+	/* Insert value at given index */
 	void insertAt(int index, T value)
 	{
 		cout << "In insertAt" << endl;
 	}
 
 	/* Remove the element at index */
-	void remove(int index)
+	void removeAt(int index)
 	{
 		cout << "In remove" << endl;
 	}
@@ -43,6 +56,5 @@ public:
 	int size()
 	{
 		cout << "In size" << endl;
-		return 0;
 	}
 };
