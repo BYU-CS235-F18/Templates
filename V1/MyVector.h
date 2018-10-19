@@ -17,7 +17,7 @@ private:
 	{
 		cout << "In resize (new capacity is " << newCapacity << ")" << endl;
 		capacity = newCapacity; // Set capacity
-		int* newArray = new T[capacity]; // Allocate new memory
+		T* newArray = new T[capacity]; // Allocate new memory
 		for(int i = 0; i < length; i++)
 			newArray[i] = array[i]; // Copy old values into new memory
 		delete [] array; // Deallocate old memory
