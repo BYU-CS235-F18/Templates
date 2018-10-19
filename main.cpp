@@ -41,4 +41,15 @@ int main()
 		cout << "Value at position " << i << ": " << nums.at(i) << endl;
 
 	// Destructor for nums called at end of scope
+
+	// Test with different data type
+	MyVector<string> strs;
+	strs.pushBack("Ash");
+	strs.pushBack("fell");
+	strs.pushBack("from");
+	strs.pushBack("the");
+	strs.pushBack("sky");
+	for(int i = 0; i < strs.size(); i++)
+		cout << strs.at(i) << " ";
+	cout << endl;
 }

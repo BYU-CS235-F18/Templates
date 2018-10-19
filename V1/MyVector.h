@@ -109,7 +109,6 @@ public:
 	/* Get number of values in vector */
 	int size()
 	{
-		cout << "In size" << endl;
 		return length;
 	}
 };
