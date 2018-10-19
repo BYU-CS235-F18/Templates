@@ -40,8 +40,6 @@ int main()
 	for(int i = 0; i < nums.size(); i++)
 		cout << "Value at position " << i << ": " << nums.at(i) << endl;
 
-	// Destructor for nums called at end of scope
-
 	// Test with different data type
 	MyVector<string> strs;
 	strs.pushBack("Ash");
@@ -52,4 +50,7 @@ int main()
 	for(int i = 0; i < strs.size(); i++)
 		cout << strs.at(i) << " ";
 	cout << endl;
+
+	// Destructor for nums called at end of scope
+	// Destructor for strs called at end of scope
 }
