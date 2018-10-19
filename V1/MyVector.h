@@ -8,7 +8,7 @@ class MyVector: public VectorInterface<T>
 {
 private:
 
-	int* array;
+	T* array;
 	int length;
 	int capacity;
 
@@ -17,7 +17,7 @@ private:
 	{
 		cout << "In resize (new capacity is " << newCapacity << ")" << endl;
 		capacity = newCapacity; // Set capacity
-		int* newArray = new int[capacity]; // Allocate new memory
+		int* newArray = new T[capacity]; // Allocate new memory
 		for(int i = 0; i < length; i++)
 			newArray[i] = array[i]; // Copy old values into new memory
 		delete [] array; // Deallocate old memory
@@ -32,7 +32,7 @@ public:
 		cout << "In constructor" << endl;
 		length = 0;
 		capacity = INIT_CAPACITY;
-		array = new int[capacity]; // Allocate memory
+		array = new T[capacity]; // Allocate memory
 	}
 
 	/* Destructor */
